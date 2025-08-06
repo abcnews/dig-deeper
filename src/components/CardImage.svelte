@@ -18,4 +18,13 @@
   img.right {
     right: 0;
   }
+
+  @media (min-width: 700px) {
+    img.left {
+      transform: translate(-50%, -50%);
+    }
+    img.right {
+      transform: translate(50%, -50%);
+    }
+  }
 </style>

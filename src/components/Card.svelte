@@ -27,7 +27,7 @@
   };
 </script>
 
-<div class="card {image?.alignment}" style:background="#{config.colour}">
+<div class="card image-alignment-{image?.alignment}" style:background="#{config.colour}">
   <h2>{title}</h2>
   {#if image}
     <CardImage {...image} />
@@ -51,8 +51,22 @@
     margin: 48px 10px;
   }
 
+  @media (min-width: 700px) {
+    .card {
+      margin-left: 0;
+      margin-right: 0;
+    }
+    .card.image-alignment-left {
+      margin-left: 46px;
+    }
+    .card.image-alignment-right {
+      margin-right: 46px;
+    }
+  }
+
   h2 {
     font-size: 2rem;
+    margin-top: 0;
     font-family: var(--dls-font-stack-serif, 'abcserif', 'Book Anitqua', 'Palatino Linotype', palatino, serif);
     line-height: 1.2;
     font-weight: 600;
