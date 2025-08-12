@@ -6,6 +6,11 @@ import { parseDOM } from './lib/parse';
 import Cards from './components/Cards.svelte';
 
 const init = async () => {
+  // Move some stuff around to make a side header possible.
+  const articleContent = document.createElement('div');
+  document.querySelectorAll('#content > *:not(.Header)').forEach(el => articleContent.appendChild(el));
+  document.querySelector('#content')?.appendChild(articleContent);
+
   const instances = await requestDOMPermit(DECOY_KEY, init);
 
   if (instances === true) {
