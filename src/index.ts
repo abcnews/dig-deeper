@@ -8,8 +8,27 @@ import Cards from './components/Cards.svelte';
 const init = async () => {
   // Move some stuff around to make a side header possible.
   const articleContent = document.createElement('div');
+  const articleHeader = document.createElement('div');
   document.querySelectorAll('#content > *:not(.Header)').forEach(el => articleContent.appendChild(el));
+  document.querySelectorAll('#content > .Header').forEach(el => articleHeader.appendChild(el));
+  document.querySelector('#content')?.appendChild(articleHeader);
   document.querySelector('#content')?.appendChild(articleContent);
+
+  const header = document.querySelector('.Header');
+  const observer = new ResizeObserver(
+    ([
+      {
+        borderBoxSize: [{ blockSize: height }]
+      }
+    ]) => {
+      if (height < window.innerHeight) {
+        header?.classList.add('sticky');
+      } else {
+        header?.classList.remove('sticky');
+      }
+    }
+  );
+  header && observer.observe(header);
 
   const instances = await requestDOMPermit(DECOY_KEY, init);
 

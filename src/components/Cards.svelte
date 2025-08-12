@@ -20,13 +20,23 @@
     }
   }
   @media (min-width: 980px) {
-    #content .Header.u-full.u-full {
+    #content > div:first-child {
       max-width: 400px;
       width: 100%;
+      position: relative;
+    }
+
+    #content .Header.u-full.u-full {
       margin: 0 !important;
       padding: 0;
+      top: 20px;
+      width: auto;
+    }
+
+    #content .Header.u-full.u-full.sticky {
       position: sticky;
     }
+
     .Header .Header-content {
       width: auto;
     }
@@ -34,7 +44,7 @@
       background: transparent;
     }
     .Header .Header-content h1 {
-      margin-top: 48px;
+      margin-top: 24px;
     }
 
     #content {
@@ -51,6 +61,7 @@
       padding: 0;
       margin: 0;
     }
+
     #content::after {
       display: none;
     }
