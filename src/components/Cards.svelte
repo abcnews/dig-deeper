@@ -22,7 +22,6 @@
   @media (min-width: 980px) {
     #content > div:first-child {
       max-width: 400px;
-      width: 100%;
       position: relative;
     }
 
