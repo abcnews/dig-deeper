@@ -38,7 +38,7 @@
   </blockquote>
   <details class:open {ontoggle} {@attach attachDetails}>
     <summary
-      >{#if open}Show less{:else}Read more{/if}</summary
+      >{#if open}Show less{:else}Dig deeper{/if}</summary
     >
   </details>
 </div>
