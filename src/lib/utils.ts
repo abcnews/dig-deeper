@@ -27,7 +27,7 @@ export const getEmbeddedImageData = async () => {
   }
 
   const article = await fetchOne(id);
-  console.log('article :>> ', article);
+
   const { _embedded } = article;
   const media = _embedded?.mediaEmbedded || [];
 

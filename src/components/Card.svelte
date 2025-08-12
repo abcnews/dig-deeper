@@ -48,14 +48,10 @@
     position: relative;
     padding: 48px 35px;
     border-radius: 12px;
-    margin: 48px 10px;
+    margin: 48px 0;
   }
 
   @media (min-width: 700px) {
-    .card {
-      margin-left: 0;
-      margin-right: 0;
-    }
     .card.image-alignment-left {
       margin-left: 46px;
     }
@@ -98,6 +94,10 @@
 
   details {
     position: relative;
+  }
+
+  details > :global(:last-child) {
+    margin-bottom: 0;
   }
 
   summary {
