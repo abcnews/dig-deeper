@@ -1,9 +1,9 @@
 <script lang="ts">
   import type { Attachment } from 'svelte/attachments';
   import CardImage from './CardImage.svelte';
+  import type { EventHandler } from 'svelte/elements';
 
   let { title, quote, image, detail, config }: TCard = $props();
-  $effect(() => console.log('config :>> ', config));
   const attachDetails: Attachment = el => {
     detail.forEach(d => el.appendChild(d));
   };
@@ -19,8 +19,8 @@
 
   let open = $state(false);
 
-  const ontoggle = (event: ToggleEvent) => {
-    open = event.newState === 'open';
+  const ontoggle: EventHandler<Event, HTMLDetailsElement> = event => {
+    open = event.currentTarget.open;
     if (!open && event.currentTarget instanceof HTMLElement) {
       event.currentTarget.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
     }
