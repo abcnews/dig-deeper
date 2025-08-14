@@ -18,8 +18,15 @@ export const isHTMLElement = (el: unknown): el is HTMLElement => el instanceof H
 export const containsImageElement = (el: unknown): el is HTMLElement =>
   typeof el !== 'undefined' && el instanceof HTMLElement && el.querySelectorAll('img,picture').length > 0;
 
-// TODO: maybe cache this return value
+type EmbeddedImageData = Record<
+  string,
+  { alt: string; url: string; renditions: ImageRendition[]; defaultRatio?: string }
+>;
+let embeddedImageData: EmbeddedImageData;
+
 export const getEmbeddedImageData = async () => {
+  if (embeddedImageData) return embeddedImageData;
+
   const id = url2cmid(document.location.href);
 
   if (!id) {
@@ -31,7 +38,7 @@ export const getEmbeddedImageData = async () => {
   const { _embedded } = article;
   const media = [_embedded?.mediaEmbedded || [], _embedded?.mediaRelated || []].flat();
 
-  return media.reduce((images, embed: any) => {
+  embeddedImageData = media.reduce((images, embed: any) => {
     try {
       const widths = [480, 240, 120];
       const imageData = getImages(embed, widths);
@@ -44,7 +51,9 @@ export const getEmbeddedImageData = async () => {
       // this ignores embeds which aren't images (which will throw an error when passed to getImages)
       return images;
     }
-  }, {} as Record<string, { alt: string; url: string; renditions: ImageRendition[]; defaultRatio?: string }>);
+  }, {} as EmbeddedImageData);
+
+  return embeddedImageData;
 };
 
 // Ensure images inside cards have src attributes
