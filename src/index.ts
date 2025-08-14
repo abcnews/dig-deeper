@@ -9,12 +9,14 @@ const init = async () => {
   // Move some stuff around to make a side header possible.
   const articleContent = document.createElement('div');
   const articleHeader = document.createElement('div');
+  const header = document.querySelector('.Header');
   document.querySelectorAll('#content > *:not(.Header)').forEach(el => articleContent.appendChild(el));
-  document.querySelectorAll('#content > .Header').forEach(el => articleHeader.appendChild(el));
+  header && articleHeader.appendChild(header);
   document.querySelector('#content')?.appendChild(articleHeader);
   document.querySelector('#content')?.appendChild(articleContent);
 
-  const header = document.querySelector('.Header');
+  const sizer = header?.querySelector('.Sizer');
+
   const observer = new ResizeObserver(
     ([
       {
@@ -25,6 +27,20 @@ const init = async () => {
         header?.classList.add('sticky');
       } else {
         header?.classList.remove('sticky');
+      }
+
+      // This weird and ugly thing is to clobber Odyssey's erroneous application of a height that assumes full width of header
+      if (sizer && sizer instanceof HTMLElement) {
+        setTimeout(() => {
+          sizer.style.removeProperty('padding-top');
+
+          const { width, height } = sizer.getBoundingClientRect();
+          const snappedHeight = Math.round(height);
+
+          if (height !== snappedHeight) {
+            sizer.style.setProperty('padding-top', `${snappedHeight}px`);
+          }
+        });
       }
     }
   );

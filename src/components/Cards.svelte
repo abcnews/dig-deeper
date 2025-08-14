@@ -13,6 +13,17 @@
   .Header .Header-content h1 {
     margin-top: 0;
   }
+
+  #content > :nth-child(2) > [data-key='cards']:first-child .card {
+    margin-top: 0;
+  }
+
+  @media (max-width: 699px) {
+    .Header-content {
+      margin: 0;
+    }
+  }
+
   @media (min-width: 700px) and (max-width: 979px) {
     .Header-media:has(.is-original) {
       margin-left: calc(8.3333333333% + 15px + 75px);
@@ -52,7 +63,7 @@
       display: flex;
       flex-direction: row;
       gap: 64px;
-      padding: 0 55px;
+      padding: 64px 55px;
     }
 
     #content > div {

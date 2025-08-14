@@ -90,6 +90,7 @@
     font-weight: 700;
     line-height: 1.4;
     font-size: 0.875rem;
+    font-style: normal;
   }
 
   details {
