@@ -33,6 +33,7 @@
   @media (min-width: 980px) {
     #content > div:first-child {
       max-width: 400px;
+      width: 40%;
       position: relative;
     }
 
@@ -67,7 +68,7 @@
     }
 
     #content > div {
-      width: auto;
+      width: 60%;
       padding: 0;
       margin: 0;
     }
