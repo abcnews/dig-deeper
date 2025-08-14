@@ -1,8 +1,14 @@
 <script lang="ts">
-  let { alt, url, renditions, alignment }: CardImage = $props();
+  let { alt, src, srcset, renditions, alignment }: CardImage = $props();
 </script>
 
-<img src={url} srcset={renditions.map(d => `${d.url} ${d.width}w`).join(',')} sizes="120px" {alt} class={alignment} />
+<img
+  {src}
+  srcset={srcset || renditions.map(d => `${d.url} ${d.width}w`).join(',')}
+  sizes="120px"
+  {alt}
+  class={alignment}
+/>
 
 <style>
   img {

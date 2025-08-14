@@ -6,7 +6,8 @@ type ImageRendition = {
 
 type CardImage = {
   alt: string;
-  url: string;
+  src?: string;
+  srcset?: string;
   renditions: ImageRendition[];
   alignment: 'right' | 'left';
 };

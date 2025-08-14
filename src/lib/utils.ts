@@ -16,7 +16,7 @@ export const isQuote = (el: unknown): el is HTMLElement =>
 export const isHTMLElement = (el: unknown): el is HTMLElement => el instanceof HTMLElement;
 
 export const containsImageElement = (el: unknown): el is HTMLElement =>
-  typeof el !== 'undefined' && el instanceof HTMLElement && el.querySelectorAll('img').length > 0;
+  typeof el !== 'undefined' && el instanceof HTMLElement && el.querySelectorAll('img,picture').length > 0;
 
 // TODO: maybe cache this return value
 export const getEmbeddedImageData = async () => {
@@ -29,7 +29,7 @@ export const getEmbeddedImageData = async () => {
   const article = await fetchOne(id);
 
   const { _embedded } = article;
-  const media = _embedded?.mediaEmbedded || [];
+  const media = [_embedded?.mediaEmbedded || [], _embedded?.mediaRelated || []].flat();
 
   return media.reduce((images, embed: any) => {
     try {

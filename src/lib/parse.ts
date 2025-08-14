@@ -19,18 +19,20 @@ const parseQuote = (el: HTMLElement): { content: HTMLElement[]; attribution?: HT
 const parseImage = async (el: HTMLElement) => {
   const img = el.querySelector('img');
   const caption = el.querySelector('figcaption');
-  const uri = el.dataset.uri;
+  const uri = el.dataset.uri || el.querySelector('a')?.getAttribute('href');
   const id = uri ? uri.substring(uri.lastIndexOf('/') + 1) : caption?.getAttribute('id');
   const alt = img?.getAttribute('alt');
-  const url = img?.dataset.src || img?.getAttribute('src');
+  const src = img?.dataset.src || img?.getAttribute('src');
+  const srcset = el.querySelector('picture > source[media="all"]')?.getAttribute('srcset');
 
-  if (typeof id === 'undefined' || id === null || typeof alt !== 'string' || typeof url !== 'string') {
+  if (typeof id === 'undefined' || id === null || (typeof src !== 'string' && typeof srcset !== 'string')) {
     return null;
   }
 
   const image: CardImage = {
-    alt,
-    url,
+    alt: alt || '',
+    src: src || undefined,
+    srcset: srcset || undefined,
     renditions: [],
     alignment: el.className.includes('floatRight') ? 'right' : 'left'
   };
