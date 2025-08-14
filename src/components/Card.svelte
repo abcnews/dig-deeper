@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Attachment } from 'svelte/attachments';
   import CardImage from './CardImage.svelte';
-  import type { EventHandler } from 'svelte/elements';
+  import type { EventHandler, KeyboardEventHandler, MouseEventHandler } from 'svelte/elements';
 
   let { title, quote, image, detail, config }: TCard = $props();
   const attachDetails: Attachment = el => {
@@ -25,9 +25,28 @@
       event.currentTarget.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
     }
   };
+
+  const onkeypress: KeyboardEventHandler<HTMLDivElement> = evt => {
+    if (evt.target instanceof Element && evt.target.tagName !== 'SUMMARY' && evt.key === ' ') {
+      open = true;
+    }
+  };
+
+  const onclick: MouseEventHandler<HTMLDivElement> = evt => {
+    if (evt.target instanceof Element && evt.target.tagName !== 'SUMMARY') {
+      open = true;
+    }
+  };
 </script>
 
-<div class="card image-alignment-{image?.alignment}" style:background="#{config.colour}">
+<div
+  role="button"
+  tabindex="0"
+  {onkeypress}
+  {onclick}
+  class="card image-alignment-{image?.alignment}"
+  style:background="#{config.colour}"
+>
   <h2>{title}</h2>
   {#if image}
     <CardImage {...image} />
@@ -36,7 +55,7 @@
   <blockquote>
     <div {@attach attachQuote}></div>
   </blockquote>
-  <details class:open {ontoggle} {@attach attachDetails}>
+  <details {open} {ontoggle} {@attach attachDetails}>
     <summary
       >{#if open}Show less{:else}Dig deeper{/if}</summary
     >
