@@ -11,7 +11,7 @@
 
 <style global>
   body {
-    overflow: auto;
+    overflow: visible;
   }
 
   .Header .Header-content h1 {
