@@ -34,7 +34,7 @@ const parseImage = async (el: HTMLElement) => {
     src: src || undefined,
     srcset: srcset || undefined,
     renditions: [],
-    alignment: el.className.includes('floatRight') ? 'right' : 'left'
+    alignment: el.className.includes('floatRight') || el.className.includes('pull-right') ? 'right' : 'left'
   };
   const embeddedImageData = await getEmbeddedImageData();
   const availableRenditions = embeddedImageData[id].renditions;
