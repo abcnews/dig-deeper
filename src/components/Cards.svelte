@@ -10,6 +10,10 @@
 </div>
 
 <style global>
+  body {
+    overflow: auto;
+  }
+
   .Header .Header-content h1 {
     margin-top: 0;
   }
